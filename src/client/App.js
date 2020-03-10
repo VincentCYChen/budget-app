@@ -1,35 +1,65 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import TransactionList from './components/TransactionList.js';
 import axios from 'axios';
+import EntryForm from './components/EntryForm.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      transactions: [
+        {
+          date: '01/01/2019',
+          description: 'Skyba',
+          amount: 49,
+          transactionType: 'debit',
+          category: 'Gym',
+          accountName: 'Credit Card 1'
+        },
+        {
+          date: '01/01/2019',
+          description: 'Feedfish',
+          amount: 60.8,
+          transactionType: 'debit',
+          category: 'Restaurants',
+          accountName: 'Credit Card 1'
+        },
+        {
+          date: '01/01/2019',
+          description: 'Vinte',
+          amount: 10.12,
+          transactionType: 'debit',
+          category: 'Shopping',
+          accountName: 'Credit Card 1'
+        },
+        {
+          date: '01/01/2019',
+          description: 'Buzzshare',
+          amount: 1150,
+          transactionType: 'debit',
+          category: 'Mortgage & Rent',
+          accountName: 'Banking Account'
+        }
+      ],
+      budget: 3000
+    };
   }
 
   componentDidMount() {
+    this.setup();
+  }
+
+  setup() {
     axios.get('/hey').then(results => {
       console.log('get results--->', results);
     });
   }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <EntryForm />
+        <TransactionList transactions={this.state.transactions} />
       </div>
     );
   }
