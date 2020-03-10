@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const connection = require('./db/index');
 
 app.use(bodyParser.json());
 
@@ -8,7 +9,13 @@ app.use(bodyParser.json());
 app.route('/api')
   .get((req, res) => {
     // get all data on user transactions
-    res.send('hello this gets all data');
+    connection.queryAsync('SELECT * FROM transactions')
+    .then(results => {
+      res.send(results);
+    })
+    .catch(err => {
+      res.send(err);
+    });
   })
   .post((req, res) => {
     // post data from input form into the database
