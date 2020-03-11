@@ -7,52 +7,20 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      transactions: [
-        {
-          date: '01/01/2019',
-          description: 'Skyba',
-          amount: 49,
-          transactionType: 'debit',
-          category: 'Gym',
-          accountName: 'Credit Card 1'
-        },
-        {
-          date: '01/01/2019',
-          description: 'Feedfish',
-          amount: 60.8,
-          transactionType: 'debit',
-          category: 'Restaurants',
-          accountName: 'Credit Card 1'
-        },
-        {
-          date: '01/01/2019',
-          description: 'Vinte',
-          amount: 10.12,
-          transactionType: 'debit',
-          category: 'Shopping',
-          accountName: 'Credit Card 1'
-        },
-        {
-          date: '01/01/2019',
-          description: 'Buzzshare',
-          amount: 1150,
-          transactionType: 'debit',
-          category: 'Mortgage & Rent',
-          accountName: 'Banking Account'
-        }
-      ],
+      transactions: [],
       budget: { budget: null }
     };
     this.handleDelete = this.handleDelete.bind(this);
+    this.getList = this.getList.bind(this);
   }
 
   componentDidMount() {
-    this.setup();
+    this.getList();
   }
 
-  setup() {
-    axios.get('/hey').then(results => {
-      console.log('get results--->', results);
+  getList() {
+    axios.get('/api').then(results => {
+      console.log('get results--->', results.data);
     });
   }
 
@@ -63,7 +31,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <EntryForm />
+        <EntryForm getList={this.getList} />
         <TransactionList
           transactions={this.state.transactions}
           handleDelete={this.handleDelete}
