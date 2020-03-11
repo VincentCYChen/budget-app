@@ -19,9 +19,13 @@ class App extends React.Component {
   }
 
   getList() {
-    axios.get('/api').then(results => {
-      console.log('get results--->', results.data);
-    });
+    axios
+      .get('/api')
+      .then(results => {
+        console.log('get results--->', results.data);
+        this.setState({ transactions: results.data });
+      })
+      .catch(err => console.log(err));
   }
 
   handleDelete(id) {
