@@ -23,7 +23,9 @@ function TransactionList({ transactions, handleDelete }) {
               <td>{transaction.accountName}</td>
               <td>
                 <button>update</button>
-                <button onClick={handleDelete}>delete</button>
+                <button onClick={() => handleDelete(transaction.id)}>
+                  delete
+                </button>
               </td>
             </tr>
           );
