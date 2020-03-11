@@ -1,38 +1,46 @@
 import React from 'react';
+import UpdateForm from './UpdateForm.js';
 
-function TransactionList({ transactions, handleDelete }) {
-  return (
-    <div>
-      <table>
+class TransactionList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showUpdate: false
+    };
+    this.handleShowUpdate = this.handleShowUpdate.bind(this);
+  }
+
+  handleShowUpdate() {
+    console.log('clicked!', this.state.showUpdate);
+    this.setState({ showUpdate: !this.state.showUpdate });
+  }
+
+  render() {
+    return (
+      <>
         <tr>
-          <th>Date</th>
-          <th>Description</th>
-          <th>Amount</th>
-          <th>Transaction Type</th>
-          <th>Category</th>
-          <th>Account Name</th>
+          <td>{this.props.transaction.date}</td>
+          <td>{this.props.transaction.description}</td>
+          <td>${this.props.transaction.amount}</td>
+          <td>{this.props.transaction.transactionType}</td>
+          <td>{this.props.transaction.category}</td>
+          <td>{this.props.transaction.accountName}</td>
+          <td>
+            <button onClick={this.handleShowUpdate}>update</button>
+            <button
+              id={this.props.transaction.id}
+              onClick={this.props.handleDelete}
+            >
+              delete
+            </button>
+          </td>
         </tr>
-        {transactions.map(transaction => {
-          return (
-            <tr>
-              <td>{transaction.date}</td>
-              <td>{transaction.description}</td>
-              <td>${transaction.amount}</td>
-              <td>{transaction.transactionType}</td>
-              <td>{transaction.category}</td>
-              <td>{transaction.accountName}</td>
-              <td>
-                <button>update</button>
-                <button id={transaction.id} onClick={handleDelete}>
-                  delete
-                </button>
-              </td>
-            </tr>
-          );
-        })}
-      </table>
-    </div>
-  );
+        {this.state.showUpdate ? (
+          <UpdateForm transaction={this.props.transaction} />
+        ) : null}
+      </>
+    );
+  }
 }
 
 export default TransactionList;

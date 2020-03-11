@@ -80,10 +80,28 @@ class App extends React.Component {
           handleBudgetSubmit={this.handleBudgetSubmit}
         />
         <EntryForm getList={this.getList} />
-        <TransactionList
-          transactions={this.state.transactions}
-          handleDelete={this.handleDelete}
-        />
+        <div>
+          <table>
+            <thead>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Transaction Type</th>
+              <th>Category</th>
+              <th>Account Name</th>
+            </thead>
+            <tbody>
+              {this.state.transactions.map(transaction => {
+                return (
+                  <TransactionList
+                    transaction={transaction}
+                    handleDelete={this.handleDelete}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
