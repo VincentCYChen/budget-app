@@ -8,7 +8,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       transactions: [],
-      budget: { budget: null }
+      budget: { budget: null },
+      showUpdate: false
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.getList = this.getList.bind(this);
@@ -38,10 +39,26 @@ class App extends React.Component {
     return (
       <div className="App">
         <EntryForm getList={this.getList} />
-        <TransactionList
-          transactions={this.state.transactions}
-          handleDelete={this.handleDelete}
-        />
+        <div>
+          <table>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Transaction Type</th>
+              <th>Category</th>
+              <th>Account Name</th>
+            </tr>
+            {this.state.transactions.map(transaction => {
+              return (
+                <TransactionList
+                  transaction={transaction}
+                  handleDelete={this.handleDelete}
+                />
+              );
+            })}
+          </table>
+        </div>
       </div>
     );
   }
