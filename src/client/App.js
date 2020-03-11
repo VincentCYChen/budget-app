@@ -28,8 +28,10 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
-  handleDelete(id) {
-    axios.delete(`/api/${id}`);
+  handleDelete(e) {
+    console.log('id--->', e.target.id);
+    let id = e.target.id;
+    axios.delete(`/api/${id}`).then(() => this.getList());
   }
 
   render() {
