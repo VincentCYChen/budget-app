@@ -3,6 +3,7 @@ var {
   getData,
   inputData,
   deleteData,
+  getBudget,
   updateBudget,
   updateData
 } = require('./controller');
@@ -19,6 +20,10 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   // post data from input form into the database
   inputData(req, res);
+});
+router.get('/budget', (req, res) => {
+  // post data from budget input form
+  getBudget(req, res);
 });
 router.post('/budget', (req, res) => {
   // post data from budget input form
