@@ -3,6 +3,7 @@ import TransactionList from "./components/TransactionList.js";
 import axios from "axios";
 import EntryForm from "./components/EntryForm.js";
 import BudgetForm from "./components/BudgetForm.js";
+import CloudCreator from "./components/word-cloud.js";
 
 class App extends React.Component {
   constructor(props) {
@@ -74,6 +75,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <CloudCreator transactions={this.state.transactions}/>
         <BudgetForm
           budget={this.state.budget}
           handleBudgetChange={this.handleBudgetChange}
