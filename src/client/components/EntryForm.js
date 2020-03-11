@@ -30,7 +30,7 @@ class EntryForm extends React.Component {
     const value = this.state;
     axios
       .post('api', value)
-      .then(data => this.setState(data.data))
+      .then(data => this.props.getList())
       .catch(err => console.log(err));
   }
 
