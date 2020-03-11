@@ -1,8 +1,8 @@
-import React from 'react';
-import TransactionList from './components/TransactionList.js';
-import axios from 'axios';
-import EntryForm from './components/EntryForm.js';
-import BudgetForm from './components/BudgetForm.js';
+import React from "react";
+import TransactionList from "./components/TransactionList.js";
+import axios from "axios";
+import EntryForm from "./components/EntryForm.js";
+import BudgetForm from "./components/BudgetForm.js";
 
 class App extends React.Component {
   constructor(props) {
@@ -20,45 +20,53 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getList();
+    this.getBudget();
   }
 
   getList() {
     axios
-      .get('/api')
+      .get("/api")
       .then(results => {
-        console.log('get results--->', results.data);
+        console.log("get results--->", results.data);
         this.setState({ transactions: results.data });
       })
       .catch(err => console.log(err));
   }
 
   handleDelete(e) {
-    console.log('id--->', e.target.id);
+    console.log("id--->", e.target.id);
     let id = e.target.id;
     axios.delete(`/api/${id}`).then(() => this.getList());
   }
 
   getBudget() {
-    // get budget from 
-    // axios.get('/api/budget')
-    console.log('get budget called');
+    axios
+      .get("/api/budget")
+      .then(({ data }) => {
+        console.log("results of budget api get request: ", data[0]);
+        this.setState({ budget: data[0].amount });
+      })
+      .catch(err => {
+        console.log("ERROR (from getting budget): ", err);
+      });
   }
 
   handleBudgetChange(e) {
     e.preventDefault();
-    this.setState({budget: e.target.value});
+    this.setState({ budget: e.target.value });
   }
 
   handleBudgetSubmit(e) {
     e.preventDefault();
     if (this.state.budget !== null || this.state.budget !== "") {
-      axios.post(`/api/budget`, {budget: this.state.budget})
+      axios
+        .post(`/api/budget`, { budget: this.state.budget })
         .then(results => {
-          console.log('results of budget update: ', results);
+          console.log("results of budget update: ", results);
           this.getBudget();
         })
         .catch(err => {
-          console.log('ERROR (resulting from budget update):', err);
+          console.log("ERROR (resulting from budget update):", err);
         });
     }
   }
@@ -66,7 +74,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <BudgetForm budget={this.state.budget} handleBudgetChange={this.handleBudgetChange} handleBudgetSubmit={this.handleBudgetSubmit}/>
+        <BudgetForm
+          budget={this.state.budget}
+          handleBudgetChange={this.handleBudgetChange}
+          handleBudgetSubmit={this.handleBudgetSubmit}
+        />
         <EntryForm getList={this.getList} />
         <TransactionList
           transactions={this.state.transactions}
