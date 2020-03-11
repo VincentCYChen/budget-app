@@ -1,6 +1,6 @@
 import React from 'react';
 
-function TransactionList({ transactions }) {
+function TransactionList({ transactions, handleDelete }) {
   return (
     <div>
       <table>
@@ -23,7 +23,7 @@ function TransactionList({ transactions }) {
               <td>{transaction.accountName}</td>
               <td>
                 <button>update</button>
-                <button>delete</button>
+                <button onClick={handleDelete}>delete</button>
               </td>
             </tr>
           );

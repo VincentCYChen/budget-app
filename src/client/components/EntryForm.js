@@ -28,7 +28,10 @@ class EntryForm extends React.Component {
     e.preventDefault();
     console.log('state after submit --->', this.state);
     const value = this.state;
-    axios.post('api', value);
+    axios
+      .post('api', value)
+      .then(data => this.setState(data.data))
+      .catch(err => console.log(err));
   }
 
   render() {
