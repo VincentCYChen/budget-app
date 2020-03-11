@@ -66,6 +66,31 @@ module.exports = {
         res.sendStatus(500);
       });
   },
+  updateData: (req, res) => {
+    // access id from req params
+    let id = req.params.id;
+    // access data from req.body
+    let data = req.body;
+    // query database to replace data
+    let options = [
+      id,
+      data.date,
+      data.description,
+      data.amount,
+      data.transactionType,
+      data.category,
+      data.accountName
+    ];
+    connection.queryAsync(`REPLACE INTO transactions VALUES (?, ?, ?, ?, ?, ?, ?)`, options)
+    .then(update => {
+      console.log('result of updating data record: ', update);
+      res.send(update);
+    })
+    .catch(err => {
+      console.log('ERROR (resulting from attempt to update data): ', err);
+      res.sendStatus(500);
+    });
+  },
   updateBudget: (req, res) => {
     // access req.body data object of new budget
     let { budget } = req.body;

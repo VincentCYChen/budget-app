@@ -1,5 +1,5 @@
 var express = require("express");
-var { getData, inputData, deleteData, updateBudget } = require("./controller");
+var { getData, inputData, deleteData, updateBudget, updateData } = require("./controller");
 var router = express.Router();
 
 router.use(function timeLog(req, res, next) {
@@ -16,7 +16,6 @@ router.post("/", (req, res) => {
 });
 router.post("/budget", (req, res) => {
   // post data from budget input form
-  console.log('req body: ', req.body);
   updateBudget(req, res);
 });
 router.delete("/:id", (req, res) => {
@@ -25,7 +24,7 @@ router.delete("/:id", (req, res) => {
 });
 router.put("/:id", (req, res) => {
   // update id in database with provided data
-  res.send("hello this updates a given record id");
+  updateData(req, res);
 });
 
 module.exports = router;
