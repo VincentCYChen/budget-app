@@ -2,16 +2,20 @@ import React from 'react';
 import TransactionList from './components/TransactionList.js';
 import axios from 'axios';
 import EntryForm from './components/EntryForm.js';
+import BudgetForm from './components/BudgetForm.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       transactions: [],
-      budget: { budget: null }
+      budget: null
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.getList = this.getList.bind(this);
+    this.handleBudgetChange = this.handleBudgetChange.bind(this);
+    this.handleBudgetSubmit = this.handleBudgetSubmit.bind(this);
+    this.getBudget = this.getBudget.bind(this);
   }
 
   componentDidMount() {
@@ -34,9 +38,35 @@ class App extends React.Component {
     axios.delete(`/api/${id}`).then(() => this.getList());
   }
 
+  getBudget() {
+    // get budget from 
+    // axios.get('/api/budget')
+    console.log('get budget called');
+  }
+
+  handleBudgetChange(e) {
+    e.preventDefault();
+    this.setState({budget: e.target.value});
+  }
+
+  handleBudgetSubmit(e) {
+    e.preventDefault();
+    if (this.state.budget !== null || this.state.budget !== "") {
+      axios.post(`/api/budget`, {budget: this.state.budget})
+        .then(results => {
+          console.log('results of budget update: ', results);
+          this.getBudget();
+        })
+        .catch(err => {
+          console.log('ERROR (resulting from budget update):', err);
+        });
+    }
+  }
+
   render() {
     return (
       <div className="App">
+        <BudgetForm budget={this.state.budget} handleBudgetChange={this.handleBudgetChange} handleBudgetSubmit={this.handleBudgetSubmit}/>
         <EntryForm getList={this.getList} />
         <TransactionList
           transactions={this.state.transactions}
