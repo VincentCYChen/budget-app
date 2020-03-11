@@ -41,8 +41,9 @@ class App extends React.Component {
           accountName: 'Banking Account'
         }
       ],
-      budget: 3000
+      budget: { budget: null }
     };
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -55,11 +56,18 @@ class App extends React.Component {
     });
   }
 
+  handleDelete(id) {
+    axios.delete(`/api/${id}`);
+  }
+
   render() {
     return (
       <div className="App">
         <EntryForm />
-        <TransactionList transactions={this.state.transactions} />
+        <TransactionList
+          transactions={this.state.transactions}
+          handleDelete={this.handleDelete}
+        />
       </div>
     );
   }
