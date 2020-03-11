@@ -4,7 +4,7 @@ module.exports = {
   getData: (req, res) => {
     // get all data on user transactions
     connection
-      .queryAsync("SELECT * FROM transactions")
+      .queryAsync("SELECT * FROM transactions ORDER BY date DESC")
       .then(results => {
         res.send(results);
       })
