@@ -41,22 +41,24 @@ class App extends React.Component {
         <EntryForm getList={this.getList} />
         <div>
           <table>
-            <tr>
+            <thead>
               <th>Date</th>
               <th>Description</th>
               <th>Amount</th>
               <th>Transaction Type</th>
               <th>Category</th>
               <th>Account Name</th>
-            </tr>
-            {this.state.transactions.map(transaction => {
-              return (
-                <TransactionList
-                  transaction={transaction}
-                  handleDelete={this.handleDelete}
-                />
-              );
-            })}
+            </thead>
+            <tbody>
+              {this.state.transactions.map(transaction => {
+                return (
+                  <TransactionList
+                    transaction={transaction}
+                    handleDelete={this.handleDelete}
+                  />
+                );
+              })}
+            </tbody>
           </table>
         </div>
       </div>

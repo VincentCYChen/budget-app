@@ -17,24 +17,28 @@ class TransactionList extends React.Component {
 
   render() {
     return (
-      <tr>
-        <td>{this.props.transaction.date}</td>
-        <td>{this.props.transaction.description}</td>
-        <td>${this.props.transaction.amount}</td>
-        <td>{this.props.transaction.transactionType}</td>
-        <td>{this.props.transaction.category}</td>
-        <td>{this.props.transaction.accountName}</td>
-        <td>
-          <button onClick={this.handleShowUpdate}>update</button>
-          <button
-            id={this.props.transaction.id}
-            onClick={this.props.handleDelete}
-          >
-            delete
-          </button>
-        </td>
-        {this.state.showUpdate ? <UpdateForm /> : null}
-      </tr>
+      <>
+        <tr>
+          <td>{this.props.transaction.date}</td>
+          <td>{this.props.transaction.description}</td>
+          <td>${this.props.transaction.amount}</td>
+          <td>{this.props.transaction.transactionType}</td>
+          <td>{this.props.transaction.category}</td>
+          <td>{this.props.transaction.accountName}</td>
+          <td>
+            <button onClick={this.handleShowUpdate}>update</button>
+            <button
+              id={this.props.transaction.id}
+              onClick={this.props.handleDelete}
+            >
+              delete
+            </button>
+          </td>
+        </tr>
+        {this.state.showUpdate ? (
+          <UpdateForm transaction={this.props.transaction} />
+        ) : null}
+      </>
     );
   }
 }
