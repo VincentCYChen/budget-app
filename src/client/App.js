@@ -1,34 +1,47 @@
-import React from 'react';
-import TransactionList from './components/TransactionList.js';
-import axios from 'axios';
-import EntryForm from './components/EntryForm.js';
-import BudgetForm from './components/BudgetForm.js';
-import CloudCreator from './components/word-cloud.js';
+import React from "react";
+import TransactionList from "./components/TransactionList.js";
+import axios from "axios";
+import EntryForm from "./components/EntryForm.js";
+import BudgetForm from "./components/BudgetForm.js";
+import CloudCreator from "./components/word-cloud.js";
+// import BarChart from "./components/barchart.js";
+import * as d3 from "d3";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       transactions: [],
-      budget: null
+      budget: null,
+      barchart: []
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.getList = this.getList.bind(this);
     this.handleBudgetChange = this.handleBudgetChange.bind(this);
     this.handleBudgetSubmit = this.handleBudgetSubmit.bind(this);
     this.getBudget = this.getBudget.bind(this);
+    this.getChartData = this.getChartData.bind(this);
   }
-
   componentDidMount() {
     this.getList();
     this.getBudget();
+    this.getChartData();
   }
-
+  getChartData() {
+    axios
+      .get("/api/chart")
+      .then(({ data }) => {
+        this.setState({ barchart: data });
+      })
+      .catch(err => {
+        console.log("ERROR (getting chart data): ", err);
+      });
+  }
   getList() {
     axios
-      .get('/api')
+      .get("/api")
       .then(results => {
-        console.log('get results--->', results.data);
+        console.log("get results--->", results.data);
         let transactions = results.data.map(transaction => {
           return {
             id: transaction.id,
@@ -47,43 +60,39 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
   handleDelete(e) {
-    console.log('id--->', e.target.id);
+    console.log("id--->", e.target.id);
     let id = e.target.id;
     axios.delete(`/api/${id}`).then(() => this.getList());
   }
-
   getBudget() {
     axios
-      .get('/api/budget')
+      .get("/api/budget")
       .then(({ data }) => {
-        console.log('results of budget api get request: ', data[0]);
+        console.log("results of budget api get request: ", data[0]);
         this.setState({ budget: data[0].amount });
       })
       .catch(err => {
-        console.log('ERROR (from getting budget): ', err);
+        console.log("ERROR (from getting budget): ", err);
       });
   }
-
   handleBudgetChange(e) {
     e.preventDefault();
     this.setState({ budget: e.target.value });
   }
-
   handleBudgetSubmit(e) {
     e.preventDefault();
-    if (this.state.budget !== null || this.state.budget !== '') {
+    if (this.state.budget !== null || this.state.budget !== "") {
       axios
         .post(`/api/budget`, { budget: this.state.budget })
         .then(results => {
-          console.log('results of budget update: ', results);
+          console.log("results of budget update: ", results);
           this.getBudget();
         })
         .catch(err => {
-          console.log('ERROR (resulting from budget update):', err);
+          console.log("ERROR (resulting from budget update):", err);
         });
     }
   }
-
   render() {
     return (
       <div className="App container">

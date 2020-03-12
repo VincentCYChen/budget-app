@@ -32,8 +32,10 @@ function CloudCreator(props) {
     transitionDuration: 1000
   };
   return (
+
     <div className="container">
       <ReactWordcloud options={options} words={wordsArray} />
+
     </div>
   );
 }
