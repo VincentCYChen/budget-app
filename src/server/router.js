@@ -5,7 +5,8 @@ var {
   deleteData,
   getBudget,
   updateBudget,
-  updateData
+  updateData,
+  getChartData
 } = require('./controller');
 var router = express.Router();
 
@@ -28,6 +29,9 @@ router.get('/budget', (req, res) => {
 router.post('/budget', (req, res) => {
   // post data from budget input form
   updateBudget(req, res);
+});
+router.get('/chart', (req, res) => {
+  getChartData(req, res);
 });
 router.delete('/:id', (req, res) => {
   // delete a given record in the database by a given id

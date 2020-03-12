@@ -19,7 +19,7 @@ function CloudCreator(props) {
   // create words array containing {text: "text", value: "value"}
 
   return (
-    <div style={{ height: '100%', width: '100%' }}>
+    <div style={{ height: '400', width: '400' }}>
       <h1> How You Spend Your Money </h1>
       <ReactWordcloud words={wordsArray} />
     </div>
