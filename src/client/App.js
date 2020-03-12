@@ -102,6 +102,7 @@ class App extends React.Component {
         <br />
         <br />
         <BudgetForm
+          data={this.state.barchart[this.state.barchart.length - 1]}
           budget={this.state.budget}
           handleBudgetChange={this.handleBudgetChange}
           handleBudgetSubmit={this.handleBudgetSubmit}

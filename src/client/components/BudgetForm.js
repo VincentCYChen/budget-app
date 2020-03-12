@@ -25,6 +25,9 @@ function BudgetForm(props) {
               >
                 Update!
               </button>
+              <br/>
+              <p> {props.data ? props.data.month : ''} Spending: ${props.data ? Math.round(props.data.total) : ''}</p>
+              <p> {props.data ? props.data.month : ''} Budget Left: ${props.data ? Math.round(props.data.budget - props.data.total) : ''}</p>
             </div>
           </label>
         </div>
