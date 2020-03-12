@@ -13,7 +13,7 @@ function CloudCreator(props) {
   });
   let wordsArray = [];
   for (var key in categories) {
-    wordsArray.push({ text: key, value: categories[key] });
+    wordsArray.push({ text: key, value: Math.round(categories[key]) });
   }
   // create words array containing {text: "text", value: "value"}
   const options = {
@@ -32,10 +32,8 @@ function CloudCreator(props) {
     transitionDuration: 1000
   };
   return (
-
     <div className="container">
       <ReactWordcloud options={options} words={wordsArray} />
-
     </div>
   );
 }
