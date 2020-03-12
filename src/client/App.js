@@ -1,11 +1,12 @@
-import React from "react";
-import TransactionList from "./components/TransactionList.js";
-import axios from "axios";
-import EntryForm from "./components/EntryForm.js";
-import BudgetForm from "./components/BudgetForm.js";
-import CloudCreator from "./components/word-cloud.js";
+import React from 'react';
+import TransactionList from './components/TransactionList.js';
+import axios from 'axios';
+import EntryForm from './components/EntryForm.js';
+import BudgetForm from './components/BudgetForm.js';
+import CloudCreator from './components/word-cloud.js';
+
 // import BarChart from "./components/barchart.js";
-import * as d3 from "d3";
+import * as d3 from 'd3';
 
 class App extends React.Component {
   constructor(props) {
@@ -27,21 +28,23 @@ class App extends React.Component {
     this.getBudget();
     this.getChartData();
   }
+
   getChartData() {
     axios
-      .get("/api/chart")
+      .get('/api/chart')
       .then(({ data }) => {
+        console.log(data);
         this.setState({ barchart: data });
       })
       .catch(err => {
-        console.log("ERROR (getting chart data): ", err);
+        console.log('ERROR (getting chart data): ', err);
       });
   }
   getList() {
     axios
-      .get("/api")
+      .get('/api')
       .then(results => {
-        console.log("get results--->", results.data);
+        console.log('get results--->', results.data);
         let transactions = results.data.map(transaction => {
           return {
             id: transaction.id,
@@ -60,19 +63,19 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
   handleDelete(e) {
-    console.log("id--->", e.target.id);
+    console.log('id--->', e.target.id);
     let id = e.target.id;
     axios.delete(`/api/${id}`).then(() => this.getList());
   }
   getBudget() {
     axios
-      .get("/api/budget")
+      .get('/api/budget')
       .then(({ data }) => {
-        console.log("results of budget api get request: ", data[0]);
+        console.log('results of budget api get request: ', data[0]);
         this.setState({ budget: data[0].amount });
       })
       .catch(err => {
-        console.log("ERROR (from getting budget): ", err);
+        console.log('ERROR (from getting budget): ', err);
       });
   }
   handleBudgetChange(e) {
@@ -81,15 +84,15 @@ class App extends React.Component {
   }
   handleBudgetSubmit(e) {
     e.preventDefault();
-    if (this.state.budget !== null || this.state.budget !== "") {
+    if (this.state.budget !== null || this.state.budget !== '') {
       axios
         .post(`/api/budget`, { budget: this.state.budget })
         .then(results => {
-          console.log("results of budget update: ", results);
+          console.log('results of budget update: ', results);
           this.getBudget();
         })
         .catch(err => {
-          console.log("ERROR (resulting from budget update):", err);
+          console.log('ERROR (resulting from budget update):', err);
         });
     }
   }
@@ -98,6 +101,7 @@ class App extends React.Component {
       <div className="App container">
         <br />
         <br />
+        <img src={process.env.PUBLIC_URL + '/mindcloud.png'} />
         <CloudCreator transactions={this.state.transactions} />
         <br />
         <br />
