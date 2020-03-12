@@ -6,10 +6,30 @@ function BudgetForm(props) {
   // pass down this.state.budget as budget (allows you to have controlled component of budget)
   // will be passed down handleBudgetSubmit (sends budget state in axios request to update budget table in DB)
   return (
-    <form>
-      Monthly Budget: <input onChange={props.handleBudgetChange} value={props.budget} type="text"></input>
-      <button onClick={props.handleBudgetSubmit}>Update!</button>
-    </form>
+    <div className="box">
+      <form className="field has-addons">
+        <div className="field-body">
+          <label className="label">
+            Monthly Budget:{' '}
+            <div className="control ">
+              <input
+                className="input"
+                onChange={props.handleBudgetChange}
+                value={props.budget}
+                type="text"
+              ></input>
+              <div className="control is-inline"></div>
+              <button
+                className="button is-primary is-rounded"
+                onClick={props.handleBudgetSubmit}
+              >
+                Update!
+              </button>
+            </div>
+          </label>
+        </div>
+      </form>
+    </div>
   );
 }
 

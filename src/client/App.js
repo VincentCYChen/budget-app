@@ -86,17 +86,22 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App container">
+        <br />
+        <br />
         <CloudCreator transactions={this.state.transactions} />
+        <br />
+        <br />
         <BudgetForm
           budget={this.state.budget}
           handleBudgetChange={this.handleBudgetChange}
           handleBudgetSubmit={this.handleBudgetSubmit}
         />
         <EntryForm getList={this.getList} />
-        <div>
-          <table>
-            <thead>
+
+        <div className="box">
+          <table className="table is-fullwidth is-hoverable">
+            <thead className="thead">
               <th>Date</th>
               <th>Description</th>
               <th>Amount</th>
@@ -104,7 +109,7 @@ class App extends React.Component {
               <th>Category</th>
               <th>Account Name</th>
             </thead>
-            <tbody>
+            <tbody calssName="tbody">
               {this.state.transactions.map(transaction => {
                 return (
                   <TransactionList

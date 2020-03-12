@@ -46,54 +46,69 @@ class EntryForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <form>
-          <label>
-            New transaction:
+      <div className="box">
+        <div className="field is-horizontal">
+          <form>
+            <label className="label">
+              New transaction:
+              <div className="field-body">
+                <input
+                  className="input"
+                  type="date"
+                  name="date"
+                  value={this.state.date}
+                  onChange={this.handleInputChange}
+                />
+                <input
+                  className="input"
+                  type="text"
+                  name="description"
+                  placeholder="Description"
+                  value={this.state.description}
+                  onChange={this.handleInputChange}
+                />
+                <input
+                  className="input"
+                  type="number"
+                  name="amount"
+                  placeholder="$"
+                  value={this.state.amount}
+                  onChange={this.handleInputChange}
+                />
+                <input
+                  className="input"
+                  type="text"
+                  name="transactionType"
+                  value={this.state.transactionType}
+                  placeholder="Debit/Credit"
+                  onChange={this.handleInputChange}
+                />
+                <input
+                  className="input"
+                  type="text"
+                  name="category"
+                  placeholder="category"
+                  value={this.state.category}
+                  onChange={this.handleInputChange}
+                />
+                <input
+                  className="input"
+                  type="text"
+                  name="accountName"
+                  placeholder="account name"
+                  value={this.state.accountName}
+                  onChange={this.handleInputChange}
+                />
+              </div>
+            </label>
             <input
-              type="date"
-              name="date"
-              value={this.state.date}
-              onChange={this.handleInputChange}
+              className="button is-primary is-rounded"
+              type="submit"
+              value="submit"
+              onClick={this.handleSubmit}
             />
-            <input
-              type="text"
-              name="description"
-              placeholder="Description"
-              value={this.state.description}
-              onChange={this.handleInputChange}
-            />
-            <input
-              type="number"
-              name="amount"
-              placeholder="$"
-              value={this.state.amount}
-              onChange={this.handleInputChange}
-            />
-            <input
-              type="text"
-              name="transactionType"
-              value={this.state.transactionType}
-              placeholder="Debit/Credit"
-              onChange={this.handleInputChange}
-            />
-            <input
-              type="text"
-              name="category"
-              placeholder="category"
-              value={this.state.category}
-              onChange={this.handleInputChange}
-            />
-            <input
-              type="text"
-              name="accountName"
-              placeholder="account name"
-              value={this.state.accountName}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <input type="submit" value="submit" onClick={this.handleSubmit} />
-        </form>
+          </form>
+        </div>
       </div>
     );
   }

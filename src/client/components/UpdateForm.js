@@ -48,6 +48,7 @@ class UpdateForm extends React.Component {
       <tr>
         <td>
           <input
+            className="input"
             type="text"
             name="date"
             placeholder={this.state.date}
@@ -63,6 +64,7 @@ class UpdateForm extends React.Component {
         </td>
         <td>
           <input
+            className="input"
             type="text"
             name="description"
             placeholder={this.state.description}
@@ -72,6 +74,7 @@ class UpdateForm extends React.Component {
         </td>
         <td>
           <input
+            className="input"
             type="number"
             name="amount"
             placeholder={this.state.amount}
@@ -81,6 +84,7 @@ class UpdateForm extends React.Component {
         </td>
         <td>
           <input
+            className="input"
             type="text"
             name="transactionType"
             value={this.state.transactionType}
@@ -90,6 +94,7 @@ class UpdateForm extends React.Component {
         </td>
         <td>
           <input
+            className="input"
             type="text"
             name="category"
             placeholder={this.state.category}
@@ -99,6 +104,7 @@ class UpdateForm extends React.Component {
         </td>
         <td>
           <input
+            className="input"
             type="text"
             name="accountName"
             placeholder={this.state.accountName}
@@ -107,7 +113,13 @@ class UpdateForm extends React.Component {
           />
         </td>
         <td>
-          <input type="submit" value="submit" onClick={this.handleSubmit} />
+          <input
+            className="input"
+            className="button is-primary is-rounded"
+            type="submit"
+            value="submit"
+            onClick={this.handleSubmit}
+          />
         </td>
       </tr>
     );
