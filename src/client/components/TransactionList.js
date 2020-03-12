@@ -18,16 +18,22 @@ class TransactionList extends React.Component {
   render() {
     return (
       <>
-        <tr>
-          <td>{this.props.transaction.date}</td>
+        <tr calssName="tr">
+          <td calssName="td">{this.props.transaction.date}</td>
           <td>{this.props.transaction.description}</td>
           <td>${this.props.transaction.amount}</td>
           <td>{this.props.transaction.transactionType}</td>
           <td>{this.props.transaction.category}</td>
           <td>{this.props.transaction.accountName}</td>
           <td>
-            <button onClick={this.handleShowUpdate}>update</button>
             <button
+              className="button is-primary is-rounded"
+              onClick={this.handleShowUpdate}
+            >
+              update
+            </button>
+            <button
+              className="button is-warning is-rounded"
               id={this.props.transaction.id}
               onClick={this.props.handleDelete}
             >

@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import ReactWordcloud from 'react-wordcloud';
 
 function CloudCreator(props) {
@@ -17,11 +16,26 @@ function CloudCreator(props) {
     wordsArray.push({ text: key, value: categories[key] });
   }
   // create words array containing {text: "text", value: "value"}
-
+  const options = {
+    colors: ['#1f271b', '#19637d', '#2aafb0', '#f5d35c', '#ef9549', '#0b1c40'],
+    enableTooltip: true,
+    deterministic: false,
+    fontFamily: 'impact',
+    fontSizes: [22, 85],
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    padding: 3,
+    rotations: 3,
+    rotationAngles: [0, 0],
+    scale: 'sqrt',
+    spiral: 'archimedean',
+    transitionDuration: 1000
+  };
   return (
-    <div style={{ height: '400', width: '400' }}>
-      <h1> How You Spend Your Money </h1>
-      <ReactWordcloud words={wordsArray} />
+
+    <div className="container">
+      <ReactWordcloud options={options} words={wordsArray} />
+
     </div>
   );
 }
