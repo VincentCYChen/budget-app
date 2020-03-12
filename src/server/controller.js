@@ -1,15 +1,15 @@
-const connection = require("./db/index");
+const connection = require('./db/index');
 
 module.exports = {
   getData: (req, res) => {
     // get all data on user transactions
     connection
-      .queryAsync("SELECT * FROM transactions ORDER BY date DESC")
+      .queryAsync('SELECT * FROM transactions ORDER BY date DESC')
       .then(results => {
         res.send(results);
       })
       .catch(err => {
-        console.log("ERROR (Cannot get all data): ", err);
+        console.log('ERROR (Cannot get all data): ', err);
         res.sendStatus(500);
       });
   },
@@ -23,7 +23,7 @@ module.exports = {
       category,
       accountName
     } = req.body;
-    console.log("req body: ", req.body);
+    console.log('req body: ', req.body);
     let options = [
       date,
       description,
@@ -39,11 +39,11 @@ module.exports = {
         options
       )
       .then(result => {
-        console.log("result of inserting new data: ", result);
+        console.log('result of inserting new data: ', result);
         res.send(result);
       })
       .catch(err => {
-        console.log("ERROR (attempt to input new data): ", err);
+        console.log('ERROR (attempt to input new data): ', err);
         res.sendStatus(500);
       });
   },
@@ -58,15 +58,17 @@ module.exports = {
         [id]
       )
       .then(result => {
-        console.log("result of deleting data: ", result);
+        console.log('result of deleting data: ', result);
         res.send(result);
       })
       .catch(err => {
-        console.log("ERROR (trying to delete record): ", err);
+        console.log('ERROR (trying to delete record): ', err);
         res.sendStatus(500);
       });
   },
   updateData: (req, res) => {
+    console.log('update id---->', req.params.id);
+    console.log('update body---->', req.body);
     // access id from req params
     let id = req.params.id;
     // access data from req.body
@@ -87,22 +89,22 @@ module.exports = {
         options
       )
       .then(update => {
-        console.log("result of updating data record: ", update);
+        console.log('result of updating data record: ', update);
         res.send(update);
       })
       .catch(err => {
-        console.log("ERROR (resulting from attempt to update data): ", err);
+        console.log('ERROR (resulting from attempt to update data): ', err);
         res.sendStatus(500);
       });
   },
   getBudget: (req, res) => {
     connection
-      .queryAsync("SELECT amount FROM budget WHERE id=1")
+      .queryAsync('SELECT amount FROM budget WHERE id=1')
       .then(results => {
         res.send(results);
       })
       .catch(err => {
-        console.log("ERROR (retrieving budget from DB): ", err);
+        console.log('ERROR (retrieving budget from DB): ', err);
         res.sendStatus(500);
       });
   },
@@ -113,18 +115,18 @@ module.exports = {
     connection
       .queryAsync(`REPLACE INTO budget VALUES (1, ?)`, [budget])
       .then(result => {
-        console.log("result of updating budget: ", result);
+        console.log('result of updating budget: ', result);
         return connection.queryAsync(
           `SELECT * FROM budget
         WHERE id = 1`
         );
       })
       .then(results => {
-        console.log("results of querying for update: ", results);
+        console.log('results of querying for update: ', results);
         res.send(results);
       })
       .catch(err => {
-        console.log("ERROR (attempting to update budget): ", err);
+        console.log('ERROR (attempting to update budget): ', err);
         res.sendStatus(500);
       });
   }

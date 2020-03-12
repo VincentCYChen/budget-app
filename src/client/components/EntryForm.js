@@ -31,6 +31,16 @@ class EntryForm extends React.Component {
     axios
       .post('api', value)
       .then(data => this.props.getList())
+      .then(
+        this.setState({
+          date: '',
+          description: '',
+          amount: '',
+          transactionType: '',
+          category: '',
+          accountName: ''
+        })
+      )
       .catch(err => console.log(err));
   }
 
