@@ -97,6 +97,21 @@ module.exports = {
         res.sendStatus(500);
       });
   },
+  getChartData: (req, res) => {
+    connection.queryAsync(
+      `SELECT MONTH(date) AS month_num, MONTHNAME(date) as month,
+      SUM(t.amount) AS total, AVG(b.amount) AS budget 
+      FROM budget.transactions AS t
+      INNER JOIN budget.budget AS b
+      GROUP BY MONTH(date)`
+    )
+      .then(results => {
+        res.send(results);
+      })
+      .catch(err => {
+        res.sendStatus(500);
+      });
+  },
   getBudget: (req, res) => {
     connection
       .queryAsync('SELECT amount FROM budget WHERE id=1')
