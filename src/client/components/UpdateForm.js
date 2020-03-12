@@ -19,9 +19,20 @@ class UpdateForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let id = this.props.transaction.id;
-    let value = this.state;
-    axios.put(`/api${id}`, value);
+    let id = this.state.id;
+    let value = {
+      date: this.state.date,
+      description: this.state.description,
+      amount: this.state.amount,
+      transactionType: this.state.transactionType,
+      category: this.state.category,
+      accountName: this.state.accountName
+    };
+    axios
+      .put(`/api/${id}`, value)
+      .then(() => this.props.handleShowUpdate())
+      .then(() => this.props.getList())
+      .catch(err => console.log(err));
   }
 
   handleInputChange(e) {

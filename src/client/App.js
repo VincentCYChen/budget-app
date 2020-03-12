@@ -1,9 +1,9 @@
-import React from "react";
-import TransactionList from "./components/TransactionList.js";
-import axios from "axios";
-import EntryForm from "./components/EntryForm.js";
-import BudgetForm from "./components/BudgetForm.js";
-import CloudCreator from "./components/word-cloud.js";
+import React from 'react';
+import TransactionList from './components/TransactionList.js';
+import axios from 'axios';
+import EntryForm from './components/EntryForm.js';
+import BudgetForm from './components/BudgetForm.js';
+import CloudCreator from './components/word-cloud.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -26,29 +26,41 @@ class App extends React.Component {
 
   getList() {
     axios
-      .get("/api")
+      .get('/api')
       .then(results => {
-        console.log("get results--->", results.data);
-        this.setState({ transactions: results.data });
+        console.log('get results--->', results.data);
+        let transactions = results.data.map(transaction => {
+          return {
+            id: transaction.id,
+            date: transaction.date.slice(0, 10),
+            description: transaction.description,
+            amount: transaction.amount,
+            transactionType: transaction.transactionType,
+            category: transaction.category,
+            accountName: transaction.accountName
+          };
+        });
+        this.setState({
+          transactions: transactions
+        });
       })
       .catch(err => console.log(err));
   }
-
   handleDelete(e) {
-    console.log("id--->", e.target.id);
+    console.log('id--->', e.target.id);
     let id = e.target.id;
     axios.delete(`/api/${id}`).then(() => this.getList());
   }
 
   getBudget() {
     axios
-      .get("/api/budget")
+      .get('/api/budget')
       .then(({ data }) => {
-        console.log("results of budget api get request: ", data[0]);
+        console.log('results of budget api get request: ', data[0]);
         this.setState({ budget: data[0].amount });
       })
       .catch(err => {
-        console.log("ERROR (from getting budget): ", err);
+        console.log('ERROR (from getting budget): ', err);
       });
   }
 
@@ -59,15 +71,15 @@ class App extends React.Component {
 
   handleBudgetSubmit(e) {
     e.preventDefault();
-    if (this.state.budget !== null || this.state.budget !== "") {
+    if (this.state.budget !== null || this.state.budget !== '') {
       axios
         .post(`/api/budget`, { budget: this.state.budget })
         .then(results => {
-          console.log("results of budget update: ", results);
+          console.log('results of budget update: ', results);
           this.getBudget();
         })
         .catch(err => {
-          console.log("ERROR (resulting from budget update):", err);
+          console.log('ERROR (resulting from budget update):', err);
         });
     }
   }
@@ -75,7 +87,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <CloudCreator transactions={this.state.transactions}/>
+        <CloudCreator transactions={this.state.transactions} />
         <BudgetForm
           budget={this.state.budget}
           handleBudgetChange={this.handleBudgetChange}
@@ -98,6 +110,7 @@ class App extends React.Component {
                   <TransactionList
                     transaction={transaction}
                     handleDelete={this.handleDelete}
+                    getList={this.getList}
                   />
                 );
               })}

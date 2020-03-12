@@ -36,7 +36,11 @@ class TransactionList extends React.Component {
           </td>
         </tr>
         {this.state.showUpdate ? (
-          <UpdateForm transaction={this.props.transaction} />
+          <UpdateForm
+            transaction={this.props.transaction}
+            handleShowUpdate={this.handleShowUpdate}
+            getList={this.props.getList}
+          />
         ) : null}
       </>
     );
