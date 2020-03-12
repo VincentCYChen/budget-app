@@ -4,7 +4,7 @@ import axios from "axios";
 import EntryForm from "./components/EntryForm.js";
 import BudgetForm from "./components/BudgetForm.js";
 import CloudCreator from "./components/word-cloud.js";
-import BarChart from "./components/barchart.js";
+// import BarChart from "./components/barchart.js";
 import * as d3 from "d3";
 
 class App extends React.Component {
@@ -97,9 +97,6 @@ class App extends React.Component {
     return (
       <div className="App">
         <CloudCreator transactions={this.state.transactions} />
-        <BarChart data={
-          this.state.barchart.map(el => (el.total - el.budget))
-          } size={[500, 250]}/>
         <BudgetForm
           budget={this.state.budget}
           handleBudgetChange={this.handleBudgetChange}
